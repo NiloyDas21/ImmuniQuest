@@ -33,3 +33,13 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.myform{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #f8fafc;
+}

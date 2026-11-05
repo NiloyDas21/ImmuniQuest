@@ -1,25 +1,28 @@
-import arushimg from './assests/arush.png';
-import niloyimg from './assests/gitprofilepic.jpeg';
-import xyzimg from './assests/xyz.png';
+import { initialData } from './data/mockData.js';
 import { useState } from 'react';
+import ChildCard from './components/ChildCard.jsx';
+import AddChildForm from './components/AddChildForm.jsx';
 
 function App(){
+  //UI updation is done by react only, and for that purpose we use hooks- here useState
+
+
   const [showform,setshowForm] = useState(false)
   //this controls whether the registration form is visible or not
-  const [children,setChildren] = useState([{
-      name:"Arush",
-      age:"2 years",
-      vaccination:"polio",
-      profilepic:arushimg
-    },
+  const [children,setChildren] = useState(initialData)
 
-    {
-      name:"Niloy",
-      age:"22 years",
-      vaccination:"none",
-      profilepic:niloyimg
-    }])
 
+  function addChild(newChild){
+    setChildren((prevChild) => [...prevChild,newChild]);
+    setshowForm(false);
+  }
+  function deleteChild(childName){
+    const updateChildren = children.filter((child) =>{
+        return child.name !== childName
+    })
+
+  setChildren(updateChildren);
+}
 
   return (
     <div className="parent-card">
@@ -30,25 +33,24 @@ function App(){
         <div className="children-grid">
           {children.map((child) => {
           return (
-            <div className="child-card" key={child.name}>
-              <img src = {child.profilepic} alt={child.name}/>
-              <h2>{child.name}</h2>
-              <p>Age :{child.age}</p>
-              <p>Vaccination status:{child.vaccination}</p>
-              
-            </div>
+            <ChildCard
+              key = {child.name}
+              child ={child}
+              onDelete={deleteChild}
+            />
           )
         })}
         </div>
-        <button onClick={() => {setshowForm(true)}}>
-          +Addchild
+        <div className='form-container'>
+          <button onClick={() => {setshowForm(!showform)}}>
+          + Addchild
         </button>
         {showform && (
-          <div>
-            <h3>register a child</h3>
-            <p>form coming soon</p>
-          </div>
+          <AddChildForm
+          onAddChild={addChild}
+          />
         )}
+        </div>
 
       </div>
   
