@@ -23,7 +23,6 @@ function AddChildForm({onAddChild}){
     setVaccination("")
     setImage(null)
 
-    setshowForm(false)
   }
     return (
           <div className="myform">
