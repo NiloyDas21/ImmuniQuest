@@ -1,7 +1,7 @@
 import { initialData } from '../../data/mockData.js';
 import { useState } from 'react';
 import ChildCard from '../../components/ChildCard.jsx';
-import AddChildForm from '../../components/AddChildForm.jsx';
+import AddChildForm from '../../components/child/AddChildForm.jsx';
 
 function CaregiverDashboard(){
   //UI updation is done by react only, and for that purpose we use hooks- here useState

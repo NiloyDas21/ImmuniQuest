@@ -29,7 +29,7 @@ function Footer() {
                     </div>
 
                     <div className="flex items-center gap-5 text-3xl text-gray-300 px-4 py-4">
-                        <a href="https://github.com/yourusername" target="_blank" rel="noreferrer">
+                        <a href="https://github.com/" target="_blank" rel="noreferrer">
                             <FaGithub className="cursor-pointer hover:text-[#2EE6C0] transition-all" />
                         </a>
 

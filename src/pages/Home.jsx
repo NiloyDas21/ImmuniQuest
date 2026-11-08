@@ -1,16 +1,10 @@
-import Navbar from "../components/Navbar";
-import HeroSection from "../components/Herosection";
-import FeaturesSection from "../components/FeatureSection";
-import Footer from "../components/Footer";
+import HeroSection from "../components/home/Herosection";
+import FeaturesSection from "../components/home/FeatureSection";
 function Home(){
     return (
         <>
-        <div>
-            <Navbar/>
             <HeroSection/>
             <FeaturesSection/>
-            <Footer/>
-        </div>
         </>
     )
 }
