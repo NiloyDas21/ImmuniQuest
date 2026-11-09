@@ -23,7 +23,7 @@ function Sidebar() {
     },
     {   
       name:"My Children",
-      path:"/family/child",
+      path:"/family/children",
       icon:Users
     },
     {

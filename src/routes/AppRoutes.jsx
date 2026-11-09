@@ -8,6 +8,7 @@ import PatientRegister from "../pages/register/PatientRegister.jsx";
 import RegistrationPending from "../pages/register/Registrationpending.jsx";
 import FamilyLayout from "../components/layouts/Familylayout.jsx";
 import FamilyDashboard from "../components/familydashboard/FamilyDashboard.jsx";
+import MyChildrenPage from "../pages/family/MyChildrenPage.jsx";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ export const router = createBrowserRouter(
       <Route path="/registration-pending" element={<RegistrationPending/>}/>
       <Route path ="/family" element={<FamilyLayout/>}>
         <Route index element={<FamilyDashboard/>} />
+        <Route path="children" element={<MyChildrenPage/>}/>
       </Route>
     </>
   )
