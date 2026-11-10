@@ -19,6 +19,7 @@ function FamilyDashboard() {
       name: "Niloy",
       dob: "2024-02-21",
       gender: "Male",
+      id:1
     },
   ];
 
@@ -27,7 +28,10 @@ function FamilyDashboard() {
 
   // Add Child
   function AddChild(newchild) {
-    setChild((prev) => [...prev, newchild]);
+    let id = Math.floor(Math.random()*10000)+1;
+    setChild((prev) => [...prev, 
+      {...newchild,id}
+    ]);
     setShowForm(false);
   }
 

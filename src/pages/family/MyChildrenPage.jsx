@@ -15,6 +15,7 @@ function MyChildrenPage() {
       name: "Niloy Das",
       dob: "2024-02-21",
       gender: "Male",
+      id:1
     },
   ];
 
@@ -22,7 +23,10 @@ function MyChildrenPage() {
   const [showForm, setShowForm] = useState(false);
 
   function addChild(newchild) {
-    setChildren((prev) => [...prev, newchild]);
+    let id = Math.floor(Math.random()*10000)+1;
+    setChildren((prev) => [...prev, 
+      {...newchild,id}
+    ]);
     setShowForm(false);
   }
 
