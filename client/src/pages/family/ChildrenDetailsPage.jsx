@@ -5,12 +5,8 @@ import {
   ArrowLeft,
   UserRound,
   CalendarDays,
-  Syringe,
-  Clock,
   CheckCircle2,
   AlertCircle,
-  ClipboardList,
-  MapPin,
 } from "lucide-react";
 
 function ChildrenDetailsPage() {

@@ -119,18 +119,18 @@ function MyChildrenPage() {
           child={children}
           deleteEntry={deleteEntry}
           getAge={getAge}
-          renderFooter={(item,index) =>{
-            return(
-            <div className="flex justify-end border-t border-gray-100 mt-5 pt-4">
-            <button
-            onClick={() => navigate(`/family/children/${item.id}`)}
-            className="flex items-center gap-2 text-sm font-semibold text-green-700 hover:text-green-800 transition"
-            >
-            View Details
-            <ArrowRight size={16} />
-            </button>
-            </div>
-            )
+          renderFooter={(item) => {
+            return (
+              <div className="flex justify-end border-t border-gray-100 mt-5 pt-4">
+                <button
+                  onClick={() => navigate(`/family/children/${item.id}`)}
+                  className="flex items-center gap-2 text-sm font-semibold text-green-700 hover:text-green-800 transition"
+                >
+                  View Details
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            );
           }}
         />
       )}
