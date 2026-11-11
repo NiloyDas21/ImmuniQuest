@@ -28,5 +28,12 @@ app.use(express.static(publicPath));
 
 // Backend API routes
 app.use("/api/v1", registrationRouter);
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(publicPath, "index.html"));
+// });
+
+app.get("/{*splat}", (req, res) => {
+    res.sendFile(path.join(publicPath, "index.html"));
+});
 
 export default app;

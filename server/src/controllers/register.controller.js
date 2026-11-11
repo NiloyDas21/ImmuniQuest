@@ -6,8 +6,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 
 export const registerChild = async (req,res) =>{
     try {
-        const {name,email,phone,password,confirmPassword} = req.body
-        if([name,email,phone,password,confirmPassword].some((field) => !field || field?.trim() === "")){
+        const {name,relationshipToChild,email,phone,password,confirmPassword} = req.body
+        if([name,relationshipToChild,email,phone,password,confirmPassword].some((field) => !field || field?.trim() === "")){
             throw new ApiError(400,"Fields can't be empty")
         }
 
@@ -24,6 +24,7 @@ export const registerChild = async (req,res) =>{
 
         const newUser = await User.create({
             name,
+            relationshipToChild,
             email,
             phone,
             password:hashedPassword,
@@ -41,6 +42,7 @@ export const registerChild = async (req,res) =>{
         return res.status(201).json(
             new ApiResponse(201,"Registration Successful",{
                 id:newUser._id,
+                relationshipToChild:newUser.relationshipToChild,
                 name:newUser.name,
                 email:newUser.email,
                 phone:newUser.phone,

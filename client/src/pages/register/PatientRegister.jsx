@@ -9,25 +9,79 @@ import {
   LockKeyhole,
   Users,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function PatientRegister() {
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+  //   const formData = new FormData(e.currentTarget);
+  //   const data = Object.fromEntries(formData.entries());
 
-    if (data.password !== data.confirmPassword) {
-      alert("Passwords do not match.");
-      return;
+  //   if (data.password !== data.confirmPassword) {
+  //     alert("Passwords do not match.");
+  //     return;
+  //   }
+
+  //   console.log("Family member registration:", data);
+
+  //   // Backend API integration will be added later.
+  // };
+    
+  const navigate = useNavigate()
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+  const data = Object.fromEntries(formData.entries());
+
+  if (data.password !== data.confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  // Map frontend field names to backend field names
+  const apiData = new FormData();
+  apiData.append("name", data.fullName);
+  apiData.append("relationshipToChild", data.relationship);
+  apiData.append("email", data.email);
+  apiData.append("phone", data.phone);
+  apiData.append("password", data.password);
+  apiData.append("confirmPassword", data.confirmPassword);
+
+  try {
+    const response = await fetch(
+      "http://localhost:8000/api/v1/register",
+      {
+        method: "POST",
+        body: apiData,
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Registration failed");
     }
 
-    console.log("Family member registration:", data);
+    alert("Registration successful!");
 
-    // Backend API integration will be added later.
-  };
+    console.log("Registered successfully:", result);
 
+    if (!response.ok) {
+    throw new Error(result.message || "Registration failed");
+  }
+
+  alert("Registration successful!");
+  navigate("/family");
+
+  } catch (error) {
+    console.error("Registration error:", error);
+    alert(error.message);
+
+  }
+};
   return (
     <div className="min-h-screen bg-linear-to-br from-emerald-50 via-white to-teal-50 flex items-center justify-center px-5 py-12">
 

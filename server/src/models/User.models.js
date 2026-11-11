@@ -35,6 +35,11 @@ const UserSchema =new mongoose.Schema(
         },
         refreshToken:{
             type:String
+        },
+        relationshipToChild: {
+            type: String,
+            required: true,
+            enum: ["mother", "father", "guardian", "other"]
         }
     },
     {timestamps:true}
