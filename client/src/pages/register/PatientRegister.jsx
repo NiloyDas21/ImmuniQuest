@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import {
   HeartPulse,
@@ -11,25 +10,8 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-function PatientRegister() {
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const formData = new FormData(e.currentTarget);
-  //   const data = Object.fromEntries(formData.entries());
-
-  //   if (data.password !== data.confirmPassword) {
-  //     alert("Passwords do not match.");
-  //     return;
-  //   }
-
-  //   console.log("Family member registration:", data);
-
-  //   // Backend API integration will be added later.
-  // };
-    
-  const navigate = useNavigate()
+function PatientRegister() {    
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -41,21 +23,15 @@ function PatientRegister() {
     return;
   }
 
-  // Map frontend field names to backend field names
-  const apiData = new FormData();
-  apiData.append("name", data.fullName);
-  apiData.append("relationshipToChild", data.relationship);
-  apiData.append("email", data.email);
-  apiData.append("phone", data.phone);
-  apiData.append("password", data.password);
-  apiData.append("confirmPassword", data.confirmPassword);
-
   try {
-    const response = await fetch(
-      "http://localhost:8000/api/v1/register",
+    const response = await fetch("http://localhost:8000/api/v1/register",
       {
         method: "POST",
-        body: apiData,
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include",
+        body:JSON.stringify(data)
       }
     );
 
@@ -64,19 +40,12 @@ function PatientRegister() {
     if (!response.ok) {
       throw new Error(result.message || "Registration failed");
     }
-
     alert("Registration successful!");
-
     console.log("Registered successfully:", result);
+    navigate("/family");
 
-    if (!response.ok) {
-    throw new Error(result.message || "Registration failed");
-  }
-
-  alert("Registration successful!");
-  navigate("/family");
-
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("Registration error:", error);
     alert(error.message);
 
@@ -132,7 +101,7 @@ function PatientRegister() {
 
                 <input
                   type="text"
-                  name="fullName"
+                  name="name"
                   placeholder="Enter your full name"
                   required
                   autoComplete="name"
@@ -151,7 +120,7 @@ function PatientRegister() {
                 <Users className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
 
                 <select
-                  name="relationship"
+                  name="relationshipToChild"
                   required
                   defaultValue=""
                   className="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl bg-white outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
