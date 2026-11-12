@@ -3,7 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
-import registrationRouter from "./routes/register.routes.js";
+import registrationRouter from "./routes/app.routes.js";
 
 const app = express();
 

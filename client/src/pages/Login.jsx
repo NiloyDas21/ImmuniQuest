@@ -1,8 +1,47 @@
 import { HeartPulse, ArrowRight } from "lucide-react";
 import healthworker from "../assests/Healthworker.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/login",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        credentials:"include",
+        body:JSON.stringify(data)
+      })
+
+      const result = await response.json();
+      if (!response.ok) {
+      throw new Error(result.message || "Login failed");
+      }
+      alert("Login successful!");
+      console.log("Login successfully:", result);
+      console.log("User role:", result.data);
+      
+      //we need to check whether to navigate to /family or /caregiver
+      if(result.data.role === "family-member"){
+        navigate("/family")
+      }
+      else if(result.data.role === "health-worker"){
+        navigate("/health-worker")
+      }
+      else if(result.data.role === "health-worker"){
+        navigate("health-officer")
+      }
+
+      } catch (error) {
+        console.error("Login error:", error);
+        alert(error.message);
+      } 
+  }
   return (
     <div className="grid min-h-screen md:grid-cols-2">
 
@@ -34,7 +73,9 @@ function Login() {
       {/* Right: form */}
       <div className="flex items-center justify-center p-8">
 
-        <form className="w-full max-w-md flex flex-col m-2">
+        <form
+        onSubmit={handleSubmit} 
+        className="w-full max-w-md flex flex-col m-2">
             {/*Logo*/}
             <div className="mb-5 flex items-center gap-2">
             <HeartPulse className="h-8 w-8 text-emerald-600" />
@@ -58,6 +99,7 @@ function Login() {
 
             <input
                 type="email"
+                name="email"
                 placeholder="you@example.com"
                 className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
             />
@@ -66,6 +108,7 @@ function Login() {
                 <label className="mb-2 block text-sm font-medium text-gray-700">Password</label>  
           <input
                 type="password"
+                name="password"
                 placeholder="Enter your password"
                 className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
             />
